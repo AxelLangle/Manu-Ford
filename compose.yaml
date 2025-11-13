@@ -1,4 +1,3 @@
-# compose.yaml
 version: '3'
 services:
     laravel.test:
@@ -28,8 +27,7 @@ services:
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
-            # ESTO ES LO QUE ARREGLA EL CONFLICTO: Usa la variable del .env (3307)
-            - '${DB_PORT}:3306' 
+            - '${DB_PORT}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: '%'
@@ -43,7 +41,11 @@ services:
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
 networks:
