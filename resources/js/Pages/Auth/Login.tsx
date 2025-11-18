@@ -3,8 +3,8 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import BaseLayout from '@/Layouts/BaseLayout';
+import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function Login({
@@ -29,15 +29,14 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
-
+        <BaseLayout title="Log in" className="max-w-md">
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
                 </div>
             )}
 
+            <div className="mx-auto w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -105,6 +104,7 @@ export default function Login({
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+            </div>
+        </BaseLayout>
     );
 }
