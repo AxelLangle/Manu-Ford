@@ -1,41 +1,16 @@
-import { useState, useRef, useEffect } from "react";
-import { User, Settings, ShoppingBag, HelpCircle, LogOut, LogIn } from "lucide-react";
-import { Link } from '@inertiajs/react';
+import { useState, useRef, useEffect } from 'react';
+import { User, Settings, ShoppingBag, HelpCircle, LogOut, LogIn } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
 
-
-// NOTE: `useAuth` is provided by the application's auth layer. We declare it here for
-// TypeScript during development so the temporary override below doesn't error at compile time.
-// When you restore real auth, ensure the actual `useAuth` hook is available and remove this declaration if desired.
-declare const useAuth: any;
-
-export default function UserMenu() {
+// UserMenu ahora utiliza directamente la autenticación compartida por Inertia (Laravel Breeze).
+// El middleware `HandleInertiaRequests` expone `auth.user`. Si `auth.user` es null => invitado.
+export default function UserMenu(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
-
-  // Development override: disable real auth checks and force a known state.
-  // Set DEV_AUTH_OVERRIDE to `true` while developing so the menu shows an authenticated state.
-  // To restore production behavior, set DEV_AUTH_OVERRIDE = false and remove/replace the
-  // override below so the actual `useAuth` hook controls `isLogged` and `logout`.
-  const DEV_AUTH_OVERRIDE = true;
-
-  // Call the auth hook (if available) so hooks order stays consistent. We will override its
-  // returned values when DEV_AUTH_OVERRIDE is enabled.
-  // NOTE: keep this call here and do not remove it unless you replace with actual logic.
-  // Example to restore: const { isLogged, logout } = useAuth(true);
-  // (The line above is intentionally shown in the comment — you can paste it back later.)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const _auth: any = (typeof useAuth !== 'undefined') ? (useAuth as any)(true) : { isLogged: false, logout: () => {} };
-  let { isLogged, logout } = _auth;
-
-  if (DEV_AUTH_OVERRIDE) {
-    // Force a logged-in state for development and provide a noop logout handler.
-    isLogged = true;
-    logout = () => {
-      // Development stub: replace with real logout when integrating auth.
-      // eslint-disable-next-line no-console
-      console.log('[DEV] logout called (stub)');
-    };
-  }
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { props } = usePage<any>();
+  const user = props?.auth?.user ?? null;
+  const isLogged = !!user;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -66,16 +41,19 @@ export default function UserMenu() {
             {isLogged ? (
               // Logged In Menu
               <div>
-                <button className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <Link
+                  href={route('profile.edit')}
+                  className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100"
+                >
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/20">
                     <User className="w-7 h-7 text-artra-navy" />
                   </div>
                   <span className="text-artra-dark-navy text-lg font-medium">
-                    Ver cuenta
+                    {user?.name || 'Cuenta'}
                   </span>
-                </button>
+                </Link>
 
-                <button className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <button type="button" className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/20">
                     <Settings className="w-7 h-7 text-artra-navy" />
                   </div>
@@ -84,7 +62,7 @@ export default function UserMenu() {
                   </span>
                 </button>
 
-                <button className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <button type="button" className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/20">
                     <ShoppingBag className="w-7 h-7 text-artra-navy" />
                   </div>
@@ -93,7 +71,7 @@ export default function UserMenu() {
                   </span>
                 </button>
 
-                <button className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <button type="button" className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/20">
                     <HelpCircle className="w-7 h-7 text-artra-navy" />
                   </div>
@@ -102,11 +80,11 @@ export default function UserMenu() {
                   </span>
                 </button>
 
-                <button
-                  onClick={() => {
-                    logout();
-                    setIsOpen(false);
-                  }}
+                <Link
+                  href={route('logout')}
+                  method="post"
+                  as="button"
+                  onClick={() => setIsOpen(false)}
                   className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
                 >
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/35">
@@ -115,12 +93,12 @@ export default function UserMenu() {
                   <span className="text-artra-dark-navy text-lg font-medium">
                     Cerrar sesión
                   </span>
-                </button>
+                </Link>
               </div>
             ) : (
               // Logged Out Menu
               <div>
-                <button className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <button type="button" className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/20">
                     <HelpCircle className="w-7 h-7 text-artra-navy" />
                   </div>
@@ -129,13 +107,10 @@ export default function UserMenu() {
                   </span>
                 </button>
 
-                <button
-                    onClick={() => {
-                    setIsOpen(false);
-                    // Fallback navigation for development: use location change.
-                    // In production with Inertia you could replace this with Inertia.visit('/login')
-                    window.location.href = '/login';
-                  }}
+                <Link
+                  href={route('login')}
+                  as="button"
+                  onClick={() => setIsOpen(false)}
                   className="w-full h-14 px-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
                 >
                   <div className="w-[50px] h-[50px] flex items-center justify-center rounded-2xl bg-artra-lighter-blue/35">
@@ -144,7 +119,7 @@ export default function UserMenu() {
                   <span className="text-artra-dark-navy text-lg font-medium">
                     Iniciar sesión
                   </span>
-                </button>
+                </Link>
               </div>
             )}
           </div>
