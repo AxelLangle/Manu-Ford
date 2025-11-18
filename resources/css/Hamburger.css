@@ -1,0 +1,25 @@
+.hamburger {
+ cursor: pointer;
+ width: 30px;
+ height: 20px;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+.bar {
+ height: 4px;
+ background-color: #060357;
+ transition: all 0.3s ease;
+} 
+
+.hamburger.open .bar:nth-child(1) {
+ transform: rotate(45deg) translateY(10px);
+ width: 35px;
+}
+.hamburger.open .bar:nth-child(2) {
+ opacity: 0;
+}
+.hamburger.open .bar:nth-child(3) {
+ transform: rotate(-45deg) translateY(-12px);
+ width: 35px;
+}
