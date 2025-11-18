@@ -1,4 +1,3 @@
-import React, { Fragment } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import BaseLayout from '@/Layouts/BaseLayout';
 
