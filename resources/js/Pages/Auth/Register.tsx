@@ -1,5 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -54,12 +54,6 @@ export default function Register() {
     };
 
     return (
-<<<<<<< HEAD
-        <GuestLayout title="Register">
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-=======
         <GuestLayout noCard>
             <Head title="Crear cuenta">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
@@ -124,7 +118,6 @@ export default function Register() {
         .enlace-login{ color:var(--primary); text-decoration:none; font-weight:600 }
         @media (max-width:800px){ .caja-formulario{ width:100%; padding:28px; border-radius:8px } }
       `}</style>
->>>>>>> bd02535e5585797822f18d52cc0ce4aa08acae58
 
                 <Toaster
                     toastOptions={{ duration: 4000 }}

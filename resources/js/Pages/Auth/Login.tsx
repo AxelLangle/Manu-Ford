@@ -1,5 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -47,12 +47,6 @@ export default function Login({
     };
 
     return (
-<<<<<<< HEAD
-        <GuestLayout title="Log in">
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-=======
         <GuestLayout noCard>
             <Head title="Iniciar sesión">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
@@ -203,7 +197,6 @@ export default function Login({
                             <p className="texto-pie">¿No tienes cuenta? <Link href={route('register')} className="enlace-login">Crea una</Link></p>
                         </div>
                     </div>
->>>>>>> bd02535e5585797822f18d52cc0ce4aa08acae58
                 </div>
             </div>
         </GuestLayout>
