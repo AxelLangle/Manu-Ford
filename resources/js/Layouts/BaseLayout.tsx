@@ -18,7 +18,7 @@ export default function BaseLayout({
 }: Props) {
     return (
         <>
-            <Head title={title ?? "Ford"} />
+            <Head title={title ?? "Ford "} />
 
             <Header title={title} />
 
