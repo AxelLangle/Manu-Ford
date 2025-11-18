@@ -1,5 +1,5 @@
 import PrimaryButton from '@/Components/PrimaryButton';
-import BaseLayout from '@/Layouts/BaseLayout';
+import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -13,8 +13,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <BaseLayout title="Email Verification" className="max-w-md">
-            <div className="mx-auto w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
+        <GuestLayout title="Email Verification">
             <div className="mb-4 text-sm text-gray-600">
                 Thanks for signing up! Before getting started, could you verify
                 your email address by clicking on the link we just emailed to
@@ -45,7 +44,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     </Link>
                 </div>
             </form>
-            </div>
-        </BaseLayout>
+        </GuestLayout>
     );
 }

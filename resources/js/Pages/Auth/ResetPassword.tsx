@@ -2,7 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import BaseLayout from '@/Layouts/BaseLayout';
+import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -29,8 +29,7 @@ export default function ResetPassword({
     };
 
     return (
-        <BaseLayout title="Reset Password" className="max-w-md">
-            <div className="mx-auto w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
+        <GuestLayout title="Reset Password">
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -94,7 +93,6 @@ export default function ResetPassword({
                     </PrimaryButton>
                 </div>
             </form>
-            </div>
-        </BaseLayout>
+        </GuestLayout>
     );
 }

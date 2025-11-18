@@ -2,7 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import BaseLayout from '@/Layouts/BaseLayout';
+import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -23,8 +23,7 @@ export default function Register() {
     };
 
     return (
-        <BaseLayout title="Register" className="max-w-md">
-            <div className="mx-auto w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
+        <GuestLayout title="Register">
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
@@ -115,7 +114,6 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
-            </div>
-        </BaseLayout>
+        </GuestLayout>
     );
 }

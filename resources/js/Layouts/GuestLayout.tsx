@@ -1,19 +1,25 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Link } from '@inertiajs/react';
+import React from 'react';
+import HeaderLog from '@/Components/HeaderLog';
 import { PropsWithChildren } from 'react';
+import { Head } from '@inertiajs/react';
 
-export default function Guest({ children }: PropsWithChildren) {
+type GuestLayoutProps = PropsWithChildren<{
+    title?: string;
+}>;
+
+export default function Guest({ children, title = 'Ford' }: GuestLayoutProps) {
     return (
-        <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />
-                </Link>
+        <>
+            <Head title={title} />
+            <div className="min-h-screen flex flex-col bg-gray-100">
+                <HeaderLog />
+                
+                <div className="flex-1 flex flex-col items-center pt-6 sm:justify-center sm:pt-0">
+                    <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
+                        {children}
+                    </div>
+                </div>
             </div>
-
-            <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
-                {children}
-            </div>
-        </div>
-    );
+        </>
+    ); 
 }
