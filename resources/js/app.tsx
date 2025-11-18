@@ -7,7 +7,7 @@ import { createRoot } from 'react-dom/client';
 import { CartProvider } from '@/Contexts/CartContext';
 import { WishlistProvider } from '@/Contexts/WishListContext';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Ford Zapata';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
