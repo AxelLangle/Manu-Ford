@@ -24,18 +24,18 @@ export default function UserMenu(): JSX.Element {
   }, []);
 //<button class="p-2 flex items-center justify-center rounded-lg bg-white hover:bg-gray-100 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart w-6 h-6 text-artra-navy" aria-hidden="true"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg></button>
   return (
-    <div className="relative flex items-center gap-3" ref={menuRef}>
+    <div className="relative flex items-center gap-[clamp(0.5rem,0.75vw,1rem)]" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-[40px] h-[40px] flex items-center justify-center rounded-lg bg-white hover:bg-gray-100 transition-colors"
+        className="w-[clamp(2rem,2.5rem,3rem)] h-[clamp(2rem,2.5rem,3rem)] flex items-center justify-center rounded-lg bg-white hover:bg-gray-100 transition-colors flex-shrink-0"
       >
-        <User className="w-7 h-7 text-artra-navy" />
+        <User className="w-[clamp(1.25rem,1.75rem,2rem)] h-[clamp(1.25rem,1.75rem,2rem)] text-artra-navy" />
       </button>
 
       {!isLogged && (
         <Link
           href={route('login')}
-          className="px-4 py-2 bg-[#060357] text-white text-sm font-medium rounded-lg hover:bg-[#04024a] transition-colors whitespace-nowrap"
+          className="px-[clamp(0.75rem,1rem,1.25rem)] py-[clamp(0.4rem,0.5rem,0.75rem)] bg-[#060357] text-white text-[clamp(0.75rem,0.85rem,1rem)] font-medium rounded-lg hover:bg-[#04024a] transition-colors whitespace-nowrap flex-shrink-0"
         >
           Iniciar sesión
         </Link>
