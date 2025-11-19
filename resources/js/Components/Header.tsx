@@ -64,7 +64,7 @@ export default function Header({ title, children }: Props) {
                     {/* Top header */}
                     <div className="flex items-center justify-start mb-[0.5vh]">
                         {/* Logo boton en la parte superior izquierda */}
-                        <div className="flex items-center gap-[1vw]">
+                        <div className="flex items-start gap-[1vw]">
                             <Link href="#" className="inline-block flex-shrink-0">
                                 <img
                                     src={logoFord}
@@ -79,29 +79,29 @@ export default function Header({ title, children }: Props) {
                     </div>
 
                     {/* Bottom header: left (hamburger + add), center (search), right (icons + user) */}
-                    <div className="flex items-center justify-between gap-[1vw] min-h-[clamp(2.5rem,4vh,4rem)]">
+                    <div className="flex items-center justify-between gap-[clamp(0.5rem,1vw,1.5rem)] min-h-[clamp(2.5rem,4vh,4rem)]">
                         {/* Left cluster */}
-                        <div className="flex items-center gap-[1vw] flex-shrink-0">
+                        <div className="flex items-center gap-[clamp(0.5rem,1vw,1rem)] flex-shrink-0">
                             <IconoHamburger />
                             <Link
                                 href="#"
                                 onClick={() => {
                                     console.info('Se agrego un vehiculo');
                                 }}
-                                className="inline-flex items-center px-[0.75vw] py-[0.5vh] text-[clamp(0.75rem,0.85vw,1.1rem)] whitespace-nowrap"
+                                className="inline-flex items-center px-[clamp(0.5rem,0.75vw,1rem)] py-[0.5vh] text-[clamp(0.7rem,0.85vw,1rem)] whitespace-nowrap"
                             >
-                                <DriveEtaIcon className="mr-[0.5vw]" sx={{ color: '#060357', fontSize: 'clamp(1.25rem, 1.5vw, 2rem)' }} />
+                                <DriveEtaIcon className="mr-[clamp(0.25rem,0.5vw,0.75rem)]" sx={{ color: '#060357', fontSize: 'clamp(1.1rem, 1.5vw, 1.75rem)' }} />
                                 Agregar Vehiculo
                             </Link>
                         </div>
 
                         {/* Center: search takes available space */}
-                        <div className="flex-1 max-w-[45vw] mx-[1vw]">
+                        <div className="flex-1 min-w-0 max-w-[clamp(20rem,35vw,40rem)] mx-[clamp(0.5rem,1vw,1.5rem)]">
                             <SearchBar />
                         </div>
 
                         {/* Right cluster: icons and user menu */}
-                        <div className="flex items-center gap-[1vw] flex-shrink-0">
+                        <div className="flex items-center gap-[clamp(0.5rem,0.75vw,1rem)] flex-shrink-0">
                             <Link href="/favoritos" className={ICON_BUTTON}>
                                 <Heart className={ICON_NAVY_24} />
                                 {wishlistItems.length > 0 && (
