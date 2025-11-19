@@ -1,5 +1,6 @@
 .container {
-  width: 40rem;
+  width: 100%;
+  max-width: 100%;
   position: relative;
   border: #060357;
 }
@@ -7,11 +8,12 @@
 .textbox {
   border: 1px solid #d1d1d1;
   border-radius: 10px;
-  height: 2rem;
+  height: clamp(1.75rem, 2rem, 2.5rem);
   outline: none;
   padding: 1px 10px;
   transition: 0.2s ease-in-out;
   width: 100%;
+  font-size: clamp(0.75rem, 0.9rem, 1rem);
 }
 
 .textbox:focus {
