@@ -60,50 +60,48 @@ export default function Header({ title, children }: Props) {
             {/*Parte blanca del Header */}
             <div className="bg-white shadow-md">
                 {/* CSS grid para dividir la parte blanca del header */}
-                <div className="grid h-16 max-w-7xl grid-rows-2 px-0 pl-2 md:h-16 lg:h-20">
+                <div className="w-full max-w-[90vw] mx-auto px-[1vw] py-[0.5vh]">
                     {/* Top header */}
-                    <div className="row-start-1 flex items-center">
+                    <div className="flex items-center justify-start mb-[0.5vh]">
                         {/* Logo boton en la parte superior izquierda */}
-                        <div className="flex items-center space-x-3">
-                            <Link href="#" className="inline-block">
+                        <div className="flex items-center gap-[1vw]">
+                            <Link href="#" className="inline-block flex-shrink-0">
                                 <img
                                     src={logoFord}
                                     alt="Ford logo"
-                                    className="h-6 w-auto object-contain"
+                                    className="h-[clamp(1rem,1.5vw,2rem)] w-auto object-contain"
                                 />
                             </Link>
-                            <span className="text-xs text-[#060357]">
+                            <span className="text-[clamp(0.65rem,0.75vw,1rem)] text-[#060357] whitespace-nowrap">
                                 GRANDES PROMOCIONES Y LAS MEJORES REFACCIONES
                             </span>
                         </div>
                     </div>
 
                     {/* Bottom header: left (hamburger + add), center (search), right (icons + user) */}
-                    <div className="row-start-2 flex items-center w-full px-8 gap-12">
+                    <div className="flex items-center justify-between gap-[1vw] min-h-[clamp(2.5rem,4vh,4rem)]">
                         {/* Left cluster */}
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center gap-[1vw] flex-shrink-0">
                             <IconoHamburger />
-                        </div>
-                        <div className="ml-16">
                             <Link
                                 href="#"
                                 onClick={() => {
                                     console.info('Se agrego un vehiculo');
                                 }}
-                                className="inline-flex items-center px-3 py-1 text-sm whitespace-nowrap flex-shrink-0"
+                                className="inline-flex items-center px-[0.75vw] py-[0.5vh] text-[clamp(0.75rem,0.85vw,1.1rem)] whitespace-nowrap"
                             >
-                                <DriveEtaIcon className="mr-3" sx={{ color: '#060357' }} />
+                                <DriveEtaIcon className="mr-[0.5vw]" sx={{ color: '#060357', fontSize: 'clamp(1.25rem, 1.5vw, 2rem)' }} />
                                 Agregar Vehiculo
                             </Link>
                         </div>
 
                         {/* Center: search takes available space */}
-                        <div className="ml-16 flex-1 mx-2">
+                        <div className="flex-1 max-w-[45vw] mx-[1vw]">
                             <SearchBar />
                         </div>
 
                         {/* Right cluster: icons and user menu */}
-                        <div className="flex items-center space-x-6 ml-5">
+                        <div className="flex items-center gap-[1vw] flex-shrink-0">
                             <Link href="/favoritos" className={ICON_BUTTON}>
                                 <Heart className={ICON_NAVY_24} />
                                 {wishlistItems.length > 0 && (
