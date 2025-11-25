@@ -14,6 +14,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/vehicle-filter', function () {
+    return Inertia::render('VehicleFilterDemo');
+})->name('vehicle-filter');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

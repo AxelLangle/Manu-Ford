@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Vehículos - Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chevron-icon {
+            width: 17.5px;
+            height: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-12">
+        <div class="w-full max-w-[1233px] mx-auto relative py-8 px-4">
+            <!-- Background -->
+            <div class="absolute inset-0 opacity-80 bg-white rounded-[15px] -z-10"></div>
+
+            <!-- Top bar -->
+            <div class="absolute top-0 left-0 right-0 h-[13px] bg-[#060357] rounded-t-[15px]"></div>
+
+            <!-- Title and Subtitle -->
+            <div class="mb-8 mt-2">
+                <h2 class="text-center text-black text-lg font-semibold font-['Inter'] capitalize mb-2">
+                    Encuentra la refacción Correcta
+                </h2>
+                <p class="text-center text-black text-[15px] font-bold font-['Inter']">
+                    Selecciona tu vehículo paso a paso o busca directamente tu refacción
+                </p>
+            </div>
+
+            <!-- Filters Container -->
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-8 flex-wrap">
+                <!-- Year Filter -->
+                <div class="relative w-full md:w-[267px]">
+                    <div class="w-full h-10 absolute inset-0 opacity-60 bg-[#f5f0f0] rounded-[15px] border border-black"></div>
+                    <div class="relative h-10 flex items-center px-4 cursor-pointer" onclick="toggleDropdown('year')">
+                        <div class="flex-1">
+                            <div id="year-text" class="text-[#999999] text-base font-thin font-['Inter'] capitalize">
+                                Selecciona el año
+                            </div>
+                        </div>
+                        <div class="w-[35px] h-6 opacity-80 overflow-hidden flex items-center justify-center">
+                            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="chevron-icon">
+                                <path d="M2.00024 2L10.7502 8L19.5002 2" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div id="year-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-black rounded-[15px] shadow-lg z-10">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2020')">2020</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2021')">2021</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2022')">2022</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2023')">2023</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2024')">2024</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectYear('2025')">2025</div>
+                    </div>
+                </div>
+
+                <!-- Brand Filter -->
+                <div class="relative w-full md:w-[267px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+                    <div class="w-full h-10 absolute inset-0 opacity-60 bg-[#f5f0f0] rounded-[15px] border border-black"></div>
+                    <div class="relative h-10 flex items-center px-4 cursor-pointer" onclick="toggleDropdown('brand')">
+                        <div class="flex-1">
+                            <div id="brand-text" class="text-[#999999]/60 text-base font-thin font-['Inter'] capitalize">
+                                Selecciona la marca
+                            </div>
+                        </div>
+                        <div class="w-[35px] h-6 opacity-80 overflow-hidden flex items-center justify-center">
+                            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="chevron-icon">
+                                <path d="M2.00024 2L10.7502 8L19.5002 2" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div id="brand-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-black rounded-[15px] shadow-lg z-10">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectBrand('Ford')">Ford</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectBrand('Chevrolet')">Chevrolet</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectBrand('Toyota')">Toyota</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectBrand('Honda')">Honda</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectBrand('Nissan')">Nissan</div>
+                    </div>
+                </div>
+
+                <!-- Model Filter -->
+                <div class="relative w-full md:w-[267px]">
+                    <div class="w-full h-10 absolute inset-0 opacity-60 bg-[#f5f0f0] rounded-[15px] border border-black"></div>
+                    <div class="relative h-10 flex items-center px-4 cursor-pointer" onclick="toggleDropdown('model')">
+                        <div class="flex-1">
+                            <div id="model-text" class="text-[#999999] text-base font-thin font-['Inter'] capitalize">
+                                Selecciona el modelo
+                            </div>
+                        </div>
+                        <div class="w-[35px] h-6 opacity-80 overflow-hidden flex items-center justify-center">
+                            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="chevron-icon">
+                                <path d="M2.00024 2L10.7502 8L19.5002 2" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div id="model-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-black rounded-[15px] shadow-lg z-10">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectModel('Fiesta')">Fiesta</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectModel('Focus')">Focus</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectModel('Mustang')">Mustang</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectModel('Ranger')">Ranger</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectModel('F-150')">F-150</div>
+                    </div>
+                </div>
+
+                <!-- Version Filter -->
+                <div class="relative w-full md:w-[267px]">
+                    <div class="w-full h-10 absolute inset-0 opacity-60 bg-[#f5f0f0] rounded-[15px] border border-black"></div>
+                    <div class="relative h-10 flex items-center px-4 cursor-pointer" onclick="toggleDropdown('version')">
+                        <div class="flex-1">
+                            <div id="version-text" class="text-[#999999] text-base font-thin font-['Inter'] capitalize">
+                                Selecciona la version
+                            </div>
+                        </div>
+                        <div class="w-[35px] h-6 opacity-80 overflow-hidden flex items-center justify-center">
+                            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="chevron-icon">
+                                <path d="M2.00024 2L10.7502 8L19.5002 2" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div id="version-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-black rounded-[15px] shadow-lg z-10">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectVersion('Base')">Base</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectVersion('SE')">SE</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectVersion('XLT')">XLT</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectVersion('Limited')">Limited</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-[#999999] text-base font-thin font-['Inter']" onclick="selectVersion('Platinum')">Platinum</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="flex justify-center">
+                <button class="w-[140px] h-10 bg-[#060357] rounded-lg overflow-hidden hover:bg-[#0a0449] transition-colors duration-150 flex items-center justify-center" onclick="handleSearch()">
+                    <div class="flex flex-col justify-start items-center">
+                        <div class="text-center text-[#f7f9fc] text-[15px] font-bold font-['Inter']">
+                            Buscar
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let openDropdown = null;
+
+        function toggleDropdown(dropdown) {
+            if (openDropdown === dropdown) {
+                document.getElementById(dropdown + '-dropdown').classList.add('hidden');
+                openDropdown = null;
+            } else {
+                if (openDropdown) {
+                    document.getElementById(openDropdown + '-dropdown').classList.add('hidden');
+                }
+                document.getElementById(dropdown + '-dropdown').classList.remove('hidden');
+                openDropdown = dropdown;
+            }
+        }
+
+        function selectYear(year) {
+            document.getElementById('year-text').textContent = year;
+            document.getElementById('year-dropdown').classList.add('hidden');
+            openDropdown = null;
+        }
+
+        function selectBrand(brand) {
+            document.getElementById('brand-text').textContent = brand;
+            document.getElementById('brand-dropdown').classList.add('hidden');
+            openDropdown = null;
+        }
+
+        function selectModel(model) {
+            document.getElementById('model-text').textContent = model;
+            document.getElementById('model-dropdown').classList.add('hidden');
+            openDropdown = null;
+        }
+
+        function selectVersion(version) {
+            document.getElementById('version-text').textContent = version;
+            document.getElementById('version-dropdown').classList.add('hidden');
+            openDropdown = null;
+        }
+
+        function handleSearch() {
+            const filters = {
+                year: document.getElementById('year-text').textContent,
+                brand: document.getElementById('brand-text').textContent,
+                model: document.getElementById('model-text').textContent,
+                version: document.getElementById('version-text').textContent
+            };
+            console.log('Filtros seleccionados:', filters);
+            alert('Búsqueda realizada con los filtros:\n' + JSON.stringify(filters, null, 2));
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.relative')) {
+                if (openDropdown) {
+                    document.getElementById(openDropdown + '-dropdown').classList.add('hidden');
+                    openDropdown = null;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
