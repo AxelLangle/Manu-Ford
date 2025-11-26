@@ -21,6 +21,14 @@ Route::get('/vehicle-filter', function () {
 
 Route::get('/categoria/{category}', [CategoryController::class, 'show'])->name('category');
 
+Route::get('/carrito', function () {
+    return Inertia::render('Cart');
+})->name('cart');
+
+Route::get('/checkout', function () {
+    return Inertia::render('Checkout');
+})->name('checkout');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
