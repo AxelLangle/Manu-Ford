@@ -21,11 +21,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            // Columnas requeridas por Laravel Cashier Stripe
-            $table->string('stripe_id')->nullable()->index();
-            $table->string('pm_type')->nullable();
-            $table->string('pm_last_four', 4)->nullable();
-            $table->timestamp('trial_ends_at')->nullable();
+            // Las columnas de Cashier se añadirán con la migración 2025_11_26_181154_create_customer_columns.php
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
