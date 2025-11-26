@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('direcciones', function (Blueprint $table) {
-            $table->id('direccion_id'); // Mantener el nombre de columna propuesto
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // Usar user_id y FK a 'users'
+            $table->id('direccion_id');
+            // La tabla 'users' usa 'id' como PK, por lo que foreignId()->constrained() es correcto.
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('calle', 255);
             $table->string('ciudad', 100);
             $table->string('estado', 100);
             $table->string('codigo_postal', 10);
-            $table->timestamps(); // Añadir timestamps para Laravel
+            $table->timestamps();
         });
     }
 

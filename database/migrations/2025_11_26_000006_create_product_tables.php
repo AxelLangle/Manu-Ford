@@ -15,8 +15,14 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id('categoria_id');
             $table->string('nombre', 100);
-            $table->foreignId('parent_categoria_id')->nullable()->constrained('categorias')->nullOnDelete();
+            $table->unsignedBigInteger('parent_categoria_id')->nullable();
             $table->timestamps();
+
+            // Clave Foránea Corregida: Referencia explícita a sí misma
+            $table->foreign('parent_categoria_id')
+                  ->references('categoria_id')->on('categorias')
+                  ->nullOnDelete()
+                  ->cascadeOnUpdate();
         });
 
         // Tabla Atributos (Tipos de atributos)
@@ -29,7 +35,7 @@ return new class extends Migration
         // Tabla Productos (Refacciones)
         Schema::create('productos', function (Blueprint $table) {
             $table->id('producto_id');
-            $table->foreignId('categoria_id')->nullable()->constrained('categorias')->nullOnDelete();
+            $table->unsignedBigInteger('categoria_id')->nullable();
             $table->string('sku', 50)->unique(); // No. de parte
             $table->string('nombre', 255);
             $table->text('descripcion')->nullable();
@@ -39,25 +45,51 @@ return new class extends Migration
             $table->string('imagen_url', 255)->nullable();
             $table->timestamps();
 
+            // Clave Foránea Corregida: Referencia explícita a 'categoria_id' en 'categorias'
+            $table->foreign('categoria_id')
+                  ->references('categoria_id')->on('categorias')
+                  ->nullOnDelete()
+                  ->cascadeOnUpdate();
+
             // Índice FULLTEXT (si se usa MySQL/MariaDB)
             // $table->fullText(['sku', 'nombre', 'descripcion']);
         });
 
         // Tabla Valores_Atributos_Producto (Tabla pivote N:M)
         Schema::create('valores_atributos_producto', function (Blueprint $table) {
-            $table->foreignId('producto_id')->constrained('productos')->cascadeOnDelete();
-            $table->foreignId('atributo_id')->constrained('atributos')->cascadeOnDelete();
+            $table->unsignedBigInteger('producto_id');
+            $table->unsignedBigInteger('atributo_id');
             $table->string('valor', 255);
             $table->primary(['producto_id', 'atributo_id']);
             $table->timestamps();
+
+            // Claves Foráneas Corregidas
+            $table->foreign('producto_id')
+                  ->references('producto_id')->on('productos')
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
+            $table->foreign('atributo_id')
+                  ->references('atributo_id')->on('atributos')
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
         });
 
         // Tabla Compatibilidad (Producto <-> Vehículo) (Tabla pivote N:M)
         Schema::create('compatibilidad', function (Blueprint $table) {
-            $table->foreignId('producto_id')->constrained('productos')->cascadeOnDelete();
-            $table->foreignId('vehiculo_id')->constrained('vehiculos')->cascadeOnDelete();
+            $table->unsignedBigInteger('producto_id');
+            $table->unsignedBigInteger('vehiculo_id');
             $table->primary(['producto_id', 'vehiculo_id']);
             $table->timestamps();
+
+            // Claves Foráneas Corregidas
+            $table->foreign('producto_id')
+                  ->references('producto_id')->on('productos')
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
+            $table->foreign('vehiculo_id')
+                  ->references('vehiculo_id')->on('vehiculos')
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
         });
     }
 

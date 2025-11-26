@@ -21,21 +21,33 @@ return new class extends Migration
         // Tabla Modelos (de Vehículos)
         Schema::create('modelos', function (Blueprint $table) {
             $table->id('modelo_id');
-            $table->foreignId('marca_id')->constrained('marcas')->restrictOnDelete();
+            $table->unsignedBigInteger('marca_id'); // Usar unsignedBigInteger en lugar de foreignId
             $table->string('nombre', 50);
             $table->timestamps();
             $table->unique(['marca_id', 'nombre']);
+
+            // Clave Foránea Corregida: Referencia explícita a 'marca_id' en 'marcas'
+            $table->foreign('marca_id')
+                  ->references('marca_id')->on('marcas')
+                  ->restrictOnDelete()
+                  ->cascadeOnUpdate();
         });
 
         // Tabla Vehiculos (Versiones específicas)
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id('vehiculo_id');
-            $table->foreignId('modelo_id')->constrained('modelos')->restrictOnDelete();
-            $table->unsignedSmallInteger('anio'); // Usar SmallInteger para el año
+            $table->unsignedBigInteger('modelo_id'); // Usar unsignedBigInteger
+            $table->unsignedSmallInteger('anio');
             $table->string('version', 100);
             $table->string('motor', 100)->nullable();
             $table->timestamps();
             $table->unique(['modelo_id', 'anio', 'version', 'motor'], 'idx_vehiculo_unico');
+
+            // Clave Foránea Corregida: Referencia explícita a 'modelo_id' en 'modelos'
+            $table->foreign('modelo_id')
+                  ->references('modelo_id')->on('modelos')
+                  ->restrictOnDelete()
+                  ->cascadeOnUpdate();
         });
     }
 
