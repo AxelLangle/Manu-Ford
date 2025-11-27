@@ -58,6 +58,8 @@ class CreateAdminUser extends Command
             'email_verified_at' => now(),
         ]);
 
+        $user->refresh(); // Forzar la recarga de atributos desde la base de datos
+
         $this->info("Usuario Administrador creado exitosamente:");
         $this->table(
             ['Campo', 'Valor'],
