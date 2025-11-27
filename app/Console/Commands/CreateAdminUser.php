@@ -50,13 +50,15 @@ class CreateAdminUser extends Command
             return Command::FAILURE;
         }
 
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'rol' => 'admin',
-            'email_verified_at' => now(),
-        ]);
+        // --- CORRECCIÓN: Asignación manual para asegurar el rol 'admin' ---
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->rol = 'admin'; // Asignación directa
+        $user->email_verified_at = now();
+        $user->save();
+        // -----------------------------------------------------------------
 
         $user->refresh(); // Forzar la recarga de atributos desde la base de datos
 
